@@ -3,28 +3,30 @@ using System.Collections;
 
 public class Triggerscript3 : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+  bool active;
+  // Use this for initialization
+  void Start () {
+    active = true;
+  }
 
-	void print3()
-	{
-		print ("Start trigger3");
-		print ("The conversation about seeing the military base in the distance");
-	}
+  void print1()
+  {
+    active = false;
+    StartCoroutine(DialogScript.DialogueStart("3", gameObject));
+  }
 
-	// Update is called once per frame
-	void Update () {
-		transform.Rotate(0,1.0F,0);
-	}
+  // Update is called once per frame
+  void Update () {
 
-	void OnTriggerEnter(Collider other) {
-		Destroy(this.gameObject);
-		print3();
+    transform.Rotate(0,1.0F,0);
+  }
 
-		//DialogScript.DialogueStart();
+  void OnTriggerEnter(Collider other) {
+    if(active)
+      print1();
+    
+    //DialogScript.DialogueStart();
 
-	}
+  }
 
 }

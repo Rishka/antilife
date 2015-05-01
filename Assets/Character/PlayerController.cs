@@ -70,10 +70,10 @@ public class PlayerController : Shooter {
 
   void GameOver()
   {
-    var rBodies = player.GetComponentsInChildren<Rigidbody>();
-    
-    foreach( var r in rBodies)
-      r.isKinematic = true;
+    var animator = GetComponent<Animator>();
+    GameMenu.pause = true;
+    GetComponent<CharacterController>().enabled = false;
+    animator.SetTrigger("Dead");
   }
   
   void PlayerShoot()
