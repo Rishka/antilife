@@ -2,29 +2,30 @@
 using System.Collections;
 
 public class Triggerscript : MonoBehaviour {
+  bool active;
+  // Use this for initialization
+  void Start () {
+    active = true;
+  }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+  void print1()
+  {
+    active = false;
+    StartCoroutine(DialogScript.DialogueStart("1", gameObject));
+  }
 
-	void print1()
-	{
-          
-          StartCoroutine(DialogScript.DialogueStart("1"));
-	}
+  // Update is called once per frame
+  void Update () {
 
-	// Update is called once per frame
-	void Update () {
-		transform.Rotate(0,1.0F,0);
-	}
+    transform.Rotate(0,1.0F,0);
+  }
 
-	void OnTriggerEnter(Collider other) {
-		Destroy(this.gameObject);
-		print1();
+  void OnTriggerEnter(Collider other) {
+    if(active)
+      print1();
 
-		//DialogScript.DialogueStart();
+    //DialogScript.DialogueStart();
 
-	}
+  }
 
 }

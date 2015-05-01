@@ -22,8 +22,9 @@ public class Animations : MonoBehaviour {
     void FixedUpdate()
     {
         Sprinting();
-        V = Input.GetAxis("Vertical");
+        V = Input.GetAxis("Vertical") * 0.75f;
         H = Input.GetAxis("Horizontal");
+        V += Sprint;
         Aiming = gameObject.GetComponent<PlayerController>().shooting;
         Animator.SetFloat ("Walk", V);
         Animator.SetFloat ("Turn", H);

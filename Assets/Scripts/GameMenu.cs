@@ -16,6 +16,7 @@ public class GameMenu : MonoBehaviour {
 	private float speed = 5f;
   public Text textX, textY;
   public static int invertValue;
+  public static bool pause;
 	//private int magAmmo,totalAmmo;
 	// Use this for initialization
 	void Start () {
@@ -34,8 +35,8 @@ public class GameMenu : MonoBehaviour {
 			transform.Rotate(Vector3.up, speed *Time.deltaTime);
 		}
                 
-		//textX.text= Xslider.value.ToString();
-		//textY.text= Yslider.value.ToString();
+		textX.text= Xslider.value.ToString();
+		textY.text= Yslider.value.ToString();
 
 		XSensitivity = Xslider.value;
 		YSensitiviy = Yslider.value; 
@@ -49,7 +50,8 @@ public class GameMenu : MonoBehaviour {
 		invertValue *= -1;
 	}
 	public void pauseGame () 
-	{ 
+	{
+                pause = true;
 		Time.timeScale = 0.0f;
 		var targetPosition = thePanel.transform.position;
 		MPanel.transform.position = targetPosition;
@@ -60,7 +62,7 @@ public class GameMenu : MonoBehaviour {
 		Time.timeScale = 1.0f;
 		var targetPosition = OPanel.transform.position;
 		MPanel.transform.position = targetPosition;
-		
+		pause = false;
 	}
 	
 	public void options () 

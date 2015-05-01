@@ -50,11 +50,14 @@ public class PlayerController : Shooter {
 	
   // Update is called once per frame
   void Update () {
-    MoveCamera(cameraTransform, centerOffset);
-    AimIn();
-    CheckForShootingAnimation();
-    PlayerShoot();
-    PlayerHealth();
+    if(!GameMenu.pause)
+    {
+      MoveCamera(cameraTransform, centerOffset);
+      AimIn();
+      CheckForShootingAnimation();
+      PlayerShoot();
+      PlayerHealth();
+    }
   }
 
   void PlayerHealth()
