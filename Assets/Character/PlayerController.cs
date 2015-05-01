@@ -19,7 +19,8 @@ public class PlayerController : Shooter {
   public float playerAccuracy = 1;
   public float lastShot = 10;
   bool snap = false;
-  public int lastHit;
+  int prevHits;
+  public float lastHit;
   public Vector3 cameraPosition;
   public float x, y, z;
   public bool zoomed = false;
@@ -62,8 +63,15 @@ public class PlayerController : Shooter {
 
   void PlayerHealth()
   {
+    lastHit += Time.deltaTime;
+    if(prevHits < Hits)
+      lastHit = 0;
+    prevHits = Hits;
     if(Hits > 0 && lastHit > 5)
+    {
       Hits -= 1;
+      lastHit -= 0.5f;
+    }
     if(Hits > 4)
       GameOver();
   }
