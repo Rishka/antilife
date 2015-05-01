@@ -10,7 +10,8 @@ public class Triggerscript : MonoBehaviour {
 
 	void print1()
 	{
-		print ("Start trigger1");
+          
+          StartCoroutine(DialogScript.DialogueStart("1"));
 	}
 
 	// Update is called once per frame

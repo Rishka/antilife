@@ -17,7 +17,7 @@ public class DialogScript : MonoBehaviour {
 		dialogueImage = GameObject.Find("DialogueImage");
 		dialogue = GameObject.Find("Dialogue");
 		Dialogue = dialogue.GetComponent<Text>();
-		dialogueImage.SetActive(false);
+		dialogueImage.GetComponent<Image>().enabled = false;
 		allLines = File.ReadAllLines(Application.dataPath+"/" +csvfile);
 
 
@@ -34,7 +34,7 @@ public class DialogScript : MonoBehaviour {
 	 
 	public static IEnumerator DialogueStart(string scene) 
 	{
-		dialogueImage.SetActive(true); 
+		dialogueImage.GetComponent<Image>().enabled = true; 
 		yield return new WaitForSeconds (2f);
 
 		foreach(var l in allLines)
@@ -43,6 +43,7 @@ public class DialogScript : MonoBehaviour {
 			//print(line[0]);
 			if(line[0]== scene)
 			{
+                          print(line[3]);
 				Dialogue.text += line[2]+": ";
 				foreach(var wrd in line[3].Split(' '))
 				{
@@ -62,7 +63,7 @@ public class DialogScript : MonoBehaviour {
 		}
 
 		//Dialogue.text += " ";
-		dialogueImage.SetActive(false);
+                dialogueImage.GetComponent<Image>().enabled = false;
 		
 	}
 }

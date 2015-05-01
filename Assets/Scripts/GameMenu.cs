@@ -20,8 +20,6 @@ public class GameMenu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		Yslider.value = 1;
-		Xslider.value = 10;
 		invertValue = -1;
 	}
 	
@@ -36,8 +34,8 @@ public class GameMenu : MonoBehaviour {
 			transform.Rotate(Vector3.up, speed *Time.deltaTime);
 		}
                 
-		textX.text= Xslider.value.ToString();
-		textY.text= Yslider.value.ToString();
+		//textX.text= Xslider.value.ToString();
+		//textY.text= Yslider.value.ToString();
 
 		XSensitivity = Xslider.value;
 		YSensitiviy = Yslider.value; 
