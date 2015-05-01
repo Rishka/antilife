@@ -19,7 +19,6 @@ public class Shooter : MonoBehaviour {
    */
   public void Shoot(Vector3 start, Vector3 target, float accuracy)
   {
-
     var dirVector = GenerateAccuracyModifiedTarget(start, target, accuracy); 
     //get hit object
     Debug.DrawRay(start, dirVector, Color.yellow, 5f);
@@ -27,11 +26,12 @@ public class Shooter : MonoBehaviour {
     RaycastHit hit;
     if(Physics.Raycast(start, dirVector, out hit, 10000f))
     {
-      Debug.Log("Hit");
+      //Debug.Log(hit.collider.tag.ToString());
       //shoot with target hitanim
-      if(hit.collider.tag == ("Shooter"))
+      if(hit.collider.tag == ("Shooter") || hit.collider.tag == ("Player"))
       {
         //add hit to hit counter
+				Debug.Log(Hits.ToString());
         hit.collider.gameObject.GetComponent<Shooter>().Hits += 1;
       }
       ShootAnimation(start, dirVector, hit.distance);

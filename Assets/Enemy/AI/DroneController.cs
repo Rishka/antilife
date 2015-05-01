@@ -54,12 +54,19 @@ public class DroneController: Shooter {
 			if (Vector3.Distance (transform.position, player.transform.position) < 10) {
 
 				myForward = transform.TransformDirection (Vector3.forward);
-				toOther = spawn.transform.position - transform.position;
+				toOther = player.transform.position - transform.position;
+				toOther += Vector3.up;
 
 				if (Vector3.Dot (myForward, toOther) > .5) {
-					if (Physics.Raycast (spawn.transform.position, myForward, out checkPlayer)) {
-						if (checkPlayer.collider.tag == player.gameObject.tag.ToString())
+					Debug.DrawRay(spawn.transform.position, toOther);
+					if (Physics.Raycast (transform.position, toOther, out checkPlayer)) {
+						Debug.DrawRay(spawn.transform.position, toOther);
+						Debug.DrawLine(spawn.transform.position, toOther);
+						Debug.Log(checkPlayer.collider.name.ToString());
+						if (checkPlayer.collider.tag == "Player"){
+							Debug.Log("Here");
 							beginAttack ();
+						}
 					} 
 				}
 			}
@@ -71,7 +78,6 @@ public class DroneController: Shooter {
 		}
 
 		if (Hits == 3) {
-			Debug.Log("Should be destroyd");
 			hitsAchieved ();
 			Destroy(this.gameObject.GetComponent<DroneController>());
 		}
@@ -115,7 +121,7 @@ public class DroneController: Shooter {
 		Collider[] objectsHit = Physics.OverlapSphere (transform.position, 20f);
 		int i = 0;
 		while (i < objectsHit.Length) {
-			if(objectsHit[i].gameObject.tag == "Enemy")
+			if(objectsHit[i].gameObject.tag == "Shooter")
 				objectsHit[i].BroadcastMessage("beginCautious", player.transform.position);
 			i++;
 		}
@@ -131,9 +137,12 @@ public class DroneController: Shooter {
 
 		sendMessage ();
 
-		int checkShoot = Random.Range (0, 100);
-		if (checkShoot == 0)
-			Shoot (spawn.transform.position, player.transform.position, 60f);
+		int checkShoot = Random.Range (0, 500);
+		if (checkShoot == 0) {
+			Vector3 temp = player.transform.position;
+			temp += Vector3.up;
+			Shoot (spawn.transform.position, temp, 90f);
+		}
 	}
 
 	void checkDistance(){

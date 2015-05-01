@@ -44,14 +44,20 @@ public class TrapController : Shooter {
 		
 		if (idle || cautious) {
 			if (Vector3.Distance (transform.position, player.transform.position) < 10) {
-				
+
 				myForward = transform.TransformDirection (Vector3.forward);
-				toOther = spawn.transform.position - transform.position;
+				toOther = player.transform.position - transform.position;
+				toOther += Vector3.up;
 				
 				if (Vector3.Dot (myForward, toOther) > .5) {
-					if (Physics.Raycast (spawn.transform.position, myForward, out checkPlayer)) {
-						if (checkPlayer.collider.tag == "Player")
+					if (Physics.Raycast (transform.position, toOther, out checkPlayer)) {
+						Debug.Log(checkPlayer.collider.name.ToString());
+						Debug.DrawRay(transform.position, toOther);
+						if (checkPlayer.collider.tag == "Player"){
+							Debug.Log("begin attack");
 							beginAttack ();
+							
+						}
 					} 
 				}
 			}
@@ -113,7 +119,7 @@ public class TrapController : Shooter {
 		transform.LookAt (whereToLook);
 
 		
-		int checkShoot = Random.Range (0, 300);
+		int checkShoot = Random.Range (0, 50);
 		if (checkShoot == 0)
 			Shoot(spawn.transform.position, player.transform.position, 80);
 	}
@@ -128,8 +134,9 @@ public class TrapController : Shooter {
 	}
 
 	void checkHiding(){
-		Physics.Raycast (transform.position, transform.forward, out checkPlayer);
-		if (checkPlayer.collider.tag != player.gameObject.tag.ToString()) {
+		toOther = player.transform.position - transform.position;
+		Physics.Raycast (transform.position, toOther, out checkPlayer);
+		if (checkPlayer.collider.tag != "Player") {
 			hiding++;
 		}
 		else {
@@ -144,7 +151,7 @@ public class TrapController : Shooter {
 		Collider[] objectsHit = Physics.OverlapSphere (transform.position, 20f);
 		int i = 0;
 		while (i < objectsHit.Length) {
-			if(objectsHit[i].gameObject.tag == "Enemy")
+			if(objectsHit[i].gameObject.tag == "Shooter")
 				objectsHit[i].BroadcastMessage("beginIdle");
 			i++;
 		}

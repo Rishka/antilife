@@ -41,7 +41,6 @@ public class GameMenu : MonoBehaviour {
     XSensitivity = Xslider.value;
     YSensitiviy = Yslider.value; 
                 
-    print (Yslider.value + " y " + Xslider.value + "x");
 
   }
   public static void RotateCompass(Quaternion q)
