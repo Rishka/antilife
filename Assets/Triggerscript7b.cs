@@ -2,29 +2,31 @@
 using System.Collections;
 
 public class Triggerscript7b : MonoBehaviour {
-
+	
+	bool active;
 	// Use this for initialization
 	void Start () {
+		active = true;
+	}
 	
-	}
-
-	void print()
+	void print1()
 	{
-		print ("Start trigger7b");
-		print ("EMP second part has been picked up");
+		active = false;
+		StartCoroutine(DialogScript.DialogueStart("7b", gameObject));
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
+		
 		transform.Rotate(0,1.0F,0);
 	}
-
+	
 	void OnTriggerEnter(Collider other) {
-		Destroy(this.gameObject);
-		print();
-
+		if(active)
+			print1();
+		
 		//DialogScript.DialogueStart();
-
+		
 	}
-
+	
 }

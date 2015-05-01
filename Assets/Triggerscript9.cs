@@ -2,29 +2,31 @@
 using System.Collections;
 
 public class Triggerscript9 : MonoBehaviour {
-
+	
+	bool active;
 	// Use this for initialization
 	void Start () {
+		active = true;
+	}
 	
-	}
-
-	void print()
+	void print1()
 	{
-		print ("Start trigger9");
-		print ("Found the key to enter the front door");
+		active = false;
+		StartCoroutine(DialogScript.DialogueStart("9", gameObject));
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
+		
 		transform.Rotate(0,1.0F,0);
 	}
-
+	
 	void OnTriggerEnter(Collider other) {
-		Destroy(this.gameObject);
-		print();
-
+		if(active)
+			print1();
+		
 		//DialogScript.DialogueStart();
-
+		
 	}
-
+	
 }

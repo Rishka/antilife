@@ -2,29 +2,31 @@
 using System.Collections;
 
 public class Triggerscript10 : MonoBehaviour {
-
+	
+	bool active;
 	// Use this for initialization
 	void Start () {
+		active = true;
+	}
 	
-	}
-
-	void print()
+	void print1()
 	{
-		print ("Start trigger10");
-		print ("Placing the EMP here would blow up the entire network of Darwin");
+		active = false;
+		StartCoroutine(DialogScript.DialogueStart("10", gameObject));
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
+		
 		transform.Rotate(0,1.0F,0);
 	}
-
+	
 	void OnTriggerEnter(Collider other) {
-		Destroy(this.gameObject);
-		print();
-
+		if(active)
+			print1();
+		
 		//DialogScript.DialogueStart();
-
+		
 	}
-
+	
 }
